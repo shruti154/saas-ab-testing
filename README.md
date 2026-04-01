@@ -16,7 +16,7 @@ The hypothesis was simple: filter out low-intent students upfront, reduce dropou
 
 ---
 
-## What I Measured
+## What was Measured
 
 Two metrics were chosen to evaluate the experiment:
 
@@ -76,6 +76,32 @@ This was a deliberate analytical decision, not an oversight.
 - **Python** — pandas, scipy, matplotlib
 - **Dataset** — Real experiment data from Udacity (2014), sourced publicly
 - **Analysis** — Statistical hypothesis testing, confidence intervals, practical significance
+
+
+---
+
+## Part 2 — AI Experiment Brief Generator
+
+Inspired by how Optimizely is integrating AI into their experimentation platform, this tool takes a business problem as input and generates a fully structured A/B test brief using Claude.
+
+### How to run it
+```bash
+python experiment_brief_generator.py
+```
+
+You will be prompted for five inputs:
+- Business problem
+- Metric to improve
+- Target user
+- Proposed change
+- Success criteria
+
+Claude returns a complete experiment brief including hypothesis, primary and secondary metrics, experiment design, risks, and recommendations.
+
+### Why this matters
+
+Most companies run A/B tests with vague hypotheses and wrong metrics. This tool forces rigour into experiment design — the same problem Optimizely's AI tooling is solving at scale.
+
 
 ---
 
