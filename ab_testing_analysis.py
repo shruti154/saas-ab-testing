@@ -81,34 +81,55 @@ print("Practically significant:", abs(nc_diff) >= d_min_net)
 
 import matplotlib.pyplot as plt
 
-fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+fig.suptitle('Udacity Free Trial Screener — A/B Test Results',
+             fontsize=14, fontweight='bold', y=1.02)
+fig.patch.set_facecolor('#F8F8F8')
+
+for ax in axes:
+    ax.set_facecolor('#F8F8F8')
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
 
 # Chart 1 - Gross Conversion
 bars1 = axes[0].bar(['Control', 'Experiment'],
                     [gross_conversion_ctrl, gross_conversion_exp],
-                    color=['#4C72B0', '#DD8452'])
-axes[0].set_title('Gross Conversion Rate')
+                    color=['#4C72B0', '#DD8452'], width=0.5)
+axes[0].set_title('Gross Conversion Rate\n(Enrollments / Clicks)', fontsize=11)
 axes[0].set_ylabel('Conversion Rate')
+axes[0].set_ylim(0, 0.30)
 for bar in bars1:
     axes[0].text(bar.get_x() + bar.get_width()/2,
-                 bar.get_height() + 0.002,
+                 bar.get_height() + 0.005,
                  f'{bar.get_height():.4f}',
-                 ha='center', fontsize=10)
+                 ha='center', fontsize=10, fontweight='bold')
+axes[0].text(0.5, 0.05, '✓ Statistically & Practically Significant',
+             transform=axes[0].transAxes, ha='center',
+             fontsize=9, color='#3B6D11')
 
 # Chart 2 - Net Conversion
 bars2 = axes[1].bar(['Control', 'Experiment'],
                     [net_conversion_ctrl, net_conversion_exp],
-                    color=['#4C72B0', '#DD8452'])
-axes[1].set_title('Net Conversion Rate')
+                    color=['#4C72B0', '#DD8452'], width=0.5)
+axes[1].set_title('Net Conversion Rate\n(Payments / Clicks)', fontsize=11)
 axes[1].set_ylabel('Conversion Rate')
+axes[1].set_ylim(0, 0.15)
 for bar in bars2:
     axes[1].text(bar.get_x() + bar.get_width()/2,
                  bar.get_height() + 0.002,
                  f'{bar.get_height():.4f}',
-                 ha='center', fontsize=10)
+                 ha='center', fontsize=10, fontweight='bold')
+axes[1].text(0.5, 0.05, '✗ Not Statistically Significant',
+             transform=axes[1].transAxes, ha='center',
+             fontsize=9, color='#A32D2D')
+
+from matplotlib.patches import Patch
+legend = [Patch(color='#4C72B0', label='Control'),
+          Patch(color='#DD8452', label='Experiment')]
+fig.legend(handles=legend, loc='upper right', frameon=False)
 
 plt.tight_layout()
-plt.savefig('conversion_charts.png')
+plt.savefig('conversion_charts.png', dpi=150, bbox_inches='tight')
 print("Chart saved")
 
 print("=" * 60)
